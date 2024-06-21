@@ -3,7 +3,7 @@ import { cargarIngrediente, obtenerIngredientes } from "../../api/ing.api.js"
 const btnCreate = document.getElementById("create")
 
 
-
+//crear
 btnCreate.addEventListener('click', async ()=>{
     const name = document.getElementById("name").value
     
