@@ -6,6 +6,7 @@ const btnAdd = document.getElementById("add")
 const btnCancel = document.getElementById("cancel")
 const btnCreate = document.getElementById('create')
 const selectIng = document.getElementById('ing');
+const listaRecetas = document.getElementById('listRecipe')
 
 const arrIng = []
 
@@ -19,7 +20,8 @@ btnCreate.addEventListener('click',async()=>{
             }));
 
     await cargarReceta(name,ingredientes);
-
+    await cargarRecetas();
+    
 
 })
 
@@ -49,17 +51,19 @@ window.addEventListener('load',async function() {
 const cargarRecetas = async () => {
     const ing = await obtenerIngredientes();
     const recetas = await obtenerRecetas();
+
+    listaRecetas.innerHTML = ''
     recetas.forEach(receta => {
-        console.log(receta)
 
         const ingredientesReceta = receta.ingredientes.map(ingReceta => {
-            const nombreIng = ing.find(e => e.id === ingReceta.id);
-            return { name: nombreIng.nombreIngrediente, quantity: ingReceta.cantidad };
+            const nombreIng = ing.find(e => e.id == ingReceta.id);
+            return {name:nombreIng.nombreIngrediente,quantity:ingReceta.cantidad };
         });
 
-        
-        const recetaHTML = recipe(`${receta.name}`, ingredientesReceta);
-        document.getElementById('listRecipe').innerHTML += recetaHTML;
+        console.log(ingredientesReceta)
+        let nmb = receta.nombre
+        const recetaHTML = recipe(nmb, ingredientesReceta);
+        listaRecetas.innerHTML += recetaHTML;
 
     });
 }
